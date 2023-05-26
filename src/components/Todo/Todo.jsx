@@ -19,7 +19,7 @@ const Todo = () => {
   return (
     <div className="px-80">
       <TodoForm onAddTodo={addTodoHandler} />
-      <TodoList />
+      <TodoList todos={todos} />
     </div>
   );
 };
