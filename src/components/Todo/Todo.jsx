@@ -41,7 +41,8 @@ const Todo = () => {
   };
 
   const deleteHandler = (id) => {
-    console.log(id);
+    const filteredTodos = todos.filter((todo) => todo.id !== id);
+    setTodos(filteredTodos);
   };
 
   return (

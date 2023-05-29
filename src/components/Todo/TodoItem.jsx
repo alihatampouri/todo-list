@@ -14,18 +14,27 @@ const TodoItem = ({ todo, onComplete, onEdit, onDelete }) => {
       }
     >
       <span>{todo.text}</span>
-      <div className="flex gap-2">
-        <button onClick={onComplete}>
+      <div className="flex gap-2 text-gray-500">
+        <button
+          className="hover:text-green-500 transition-all"
+          onClick={onComplete}
+        >
           {todo.isCompleted ? (
             <IoCheckmarkCircleSharp size="1.2em" />
           ) : (
             <IoCheckmarkCircleOutline size="1.2em" />
           )}
         </button>
-        <button onClick={onEdit}>
+        <button
+          className="hover:text-yellow-500 transition-all"
+          onClick={onEdit}
+        >
           <IoCreateOutline size="1.2em" />
         </button>
-        <button onClick={onDelete}>
+        <button
+          className="hover:text-red-500 transition-all"
+          onClick={onDelete}
+        >
           <IoCloseOutline size="1.2em" />
         </button>
       </div>
