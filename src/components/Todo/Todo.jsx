@@ -16,10 +16,43 @@ const Todo = () => {
     ]);
   };
 
+  const completeHandler = (id) => {
+    // find item index
+    const index = todos.findIndex((todo) => todo.id === id);
+
+    // clone item
+    const item = { ...todos[index] };
+
+    // change completed status
+    item.isCompleted = !item.isCompleted;
+
+    // clone todos for update
+    const updatedTodos = [...todos];
+
+    // replace item
+    updatedTodos[index] = item;
+
+    // update todos state
+    setTodos(updatedTodos);
+  };
+
+  const editHandler = (id) => {
+    console.log(id);
+  };
+
+  const deleteHandler = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className="px-80">
       <TodoForm onAddTodo={addTodoHandler} />
-      <TodoList todos={todos} />
+      <TodoList
+        todos={todos}
+        onComplete={completeHandler}
+        onEdit={editHandler}
+        onDelete={deleteHandler}
+      />
     </div>
   );
 };
