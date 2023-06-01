@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { useTodosDispatch } from "../Providers/TodosProvider";
 
 const TodoForm = (props) => {
+  const dispatch = useTodosDispatch();
+
   const [todo, setTodo] = useState("");
   const [alert, setAlert] = useState("");
 
@@ -17,7 +20,7 @@ const TodoForm = (props) => {
 
     setAlert("");
     setTodo("");
-    props.onAddTodo(todo);
+    dispatch({type: 'add', todo: todo});
   };
 
   const changeHandler = (e) => {

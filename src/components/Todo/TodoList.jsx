@@ -1,6 +1,10 @@
+import { useTodos, useTodosDispatch } from "../Providers/TodosProvider";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, onComplete, onEdit, onDelete }) => {
+const TodoList = ({ onComplete, onEdit, onDelete }) => {
+  const todos = useTodos();
+  const dispatch = useTodosDispatch();
+
   const renderTodos = () => {
     if (todos.length === 0) {
       return (
@@ -14,9 +18,9 @@ const TodoList = ({ todos, onComplete, onEdit, onDelete }) => {
       <TodoItem
         key={todo.id}
         todo={todo}
-        onComplete={() => onComplete(todo.id)}
-        onEdit={() => onEdit(todo.id)}
-        onDelete={() => onDelete(todo.id)}
+        onComplete={() => dispatch({type: 'complete', id: todo.id})}
+        onEdit={() => dispatch({type: 'edit', id: todo.id})}
+        onDelete={() => dispatch({type: 'delete', id: todo.id})}
       />
     ));
   };
