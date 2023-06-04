@@ -33,6 +33,17 @@ const TodoItem = ({ todo, onComplete, onEdit, onDelete }) => {
     setEditing({ ...todo, text: e.target.value });
   };
 
+  const keyDownHandler = (e) => {
+    switch (e.keyCode) {
+      case 13:
+        submitEditHandler();
+        break;
+      case 27:
+        cancelEditingHandler();
+        break;
+    }
+  };
+
   return (
     <div
       className={
@@ -46,6 +57,7 @@ const TodoItem = ({ todo, onComplete, onEdit, onDelete }) => {
         value={editing ? editing.text : todo.text}
         className="bg-gray-100 outline-none w-11/12"
         onChange={changeHandler}
+        onKeyDown={keyDownHandler}
         disabled={!editing}
         ref={textInput}
       />

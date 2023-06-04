@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+import random from "../../utils/random";
 
 const todosContext = createContext();
 const todosActions = createContext();
@@ -9,7 +10,7 @@ const todoReducer = (todos, action) => {
       return [
         ...todos,
         {
-          id: todos.length + 1,
+          id: random(1000,9999),
           text: action.todo,
           isCompleted: false,
         },
