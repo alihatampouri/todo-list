@@ -6,9 +6,9 @@ function App() {
   return (
     <TodosProvider>
       <Navbar />
-      <div className="container md:container md:mx-auto px-8 py-4">
+      <section className="md:mx-auto py-4 px-4 lg:px-60 md:px-40">
         <Todo />
-      </div>
+      </section>
     </TodosProvider>
   );
 }

@@ -55,7 +55,7 @@ const TodoItem = ({ todo, onComplete, onEdit, onDelete }) => {
       <input
         type="text"
         value={editing ? editing.text : todo.text}
-        className="bg-gray-100 outline-none w-11/12"
+        className="bg-gray-100 outline-none w-8/12"
         onChange={changeHandler}
         onKeyDown={keyDownHandler}
         disabled={!editing}
