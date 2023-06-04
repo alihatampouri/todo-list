@@ -17,7 +17,17 @@ const todoReducer = (todos, action) => {
     }
 
     case "edit": {
-      console.log(action.id);
+      // find item index
+      const index = todos.findIndex((todo) => todo.id === action.id);
+
+      // clone todos for update
+      const updatedTodos = [...todos];
+
+      // replace item
+      updatedTodos[index] = action.item;
+
+      // update todos state
+      return updatedTodos;
     }
 
     case "delete": {

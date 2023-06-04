@@ -19,7 +19,7 @@ const TodoList = ({ onComplete, onEdit, onDelete }) => {
         key={todo.id}
         todo={todo}
         onComplete={() => dispatch({type: 'complete', id: todo.id})}
-        onEdit={() => dispatch({type: 'edit', id: todo.id})}
+        onEdit={(edited) => dispatch({type: 'edit', id: todo.id, item: edited})}
         onDelete={() => dispatch({type: 'delete', id: todo.id})}
       />
     ));
