@@ -1,11 +1,20 @@
 import { createContext, useContext, useReducer, useState } from "react";
 import random from "../../utils/random";
 
+const mainContext = createContext();
+
 const todosContext = createContext();
 const todosActions = createContext();
 
+const todoFilter = createContext();
+const setTodoFilter = createContext();
+const todoFilterStatus = createContext();
+const setTodoFilterStatus = createContext();
+
 const TodosProvider = ({ children }) => {
   const [mainTodos, setMainTodos] = useState([]);
+  const [filter, setFilter] = useState("all");
+  const [filterStatus, setFilterStatus] = useState(0);
 
   const todoReducer = (todos, action) => {
     switch (action.type) {
@@ -86,13 +95,33 @@ const TodosProvider = ({ children }) => {
   const [todos, dispatch] = useReducer(todoReducer, []);
 
   return (
-    <todosContext.Provider value={todos}>
-      <todosActions.Provider value={dispatch}>{children}</todosActions.Provider>
-    </todosContext.Provider>
+    <mainContext.Provider value={mainTodos}>
+      <todosContext.Provider value={todos}>
+        <todosActions.Provider value={dispatch}>
+          <todoFilter.Provider value={filter}>
+            <setTodoFilter.Provider value={setFilter}>
+              <todoFilterStatus.Provider value={filterStatus}>
+                <setTodoFilterStatus.Provider value={setFilterStatus}>
+                  {children}
+                </setTodoFilterStatus.Provider>
+              </todoFilterStatus.Provider>
+            </setTodoFilter.Provider>
+          </todoFilter.Provider>
+        </todosActions.Provider>
+      </todosContext.Provider>
+    </mainContext.Provider>
   );
 };
 
 export default TodosProvider;
 
+export const useMainTodos = () => useContext(mainContext);
+
 export const useTodos = () => useContext(todosContext);
 export const useTodosDispatch = () => useContext(todosActions);
+
+export const useFilter = () => useContext(todoFilter);
+export const useSetFilter = () => useContext(setTodoFilter);
+
+export const useFilterStatus = () => useContext(todoFilterStatus);
+export const useSetFilterStatus = () => useContext(setTodoFilterStatus);
