@@ -1,22 +1,20 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useReducer, useState } from "react";
 import random from "../../utils/random";
 
-const mainContext = createContext();
+export const allTodos = createContext();
 
-const todosContext = createContext();
-const todosActions = createContext();
+export const filteredTodos = createContext();
 
-const todoFilter = createContext();
-const setTodoFilter = createContext();
-const todoFilterStatus = createContext();
-const setTodoFilterStatus = createContext();
+export const todoFilter = createContext();
+
+export const todoFilterStatus = createContext();
 
 const TodosProvider = ({ children }) => {
   const [mainTodos, setMainTodos] = useState([]);
   const [filter, setFilter] = useState("all");
   const [filterStatus, setFilterStatus] = useState(0);
 
-  const todoReducer = (todos, action) => {
+  const todoReducer = (state, action) => {
     switch (action.type) {
       case "add": {
         const newTodos = [
@@ -95,33 +93,16 @@ const TodosProvider = ({ children }) => {
   const [todos, dispatch] = useReducer(todoReducer, []);
 
   return (
-    <mainContext.Provider value={mainTodos}>
-      <todosContext.Provider value={todos}>
-        <todosActions.Provider value={dispatch}>
-          <todoFilter.Provider value={filter}>
-            <setTodoFilter.Provider value={setFilter}>
-              <todoFilterStatus.Provider value={filterStatus}>
-                <setTodoFilterStatus.Provider value={setFilterStatus}>
-                  {children}
-                </setTodoFilterStatus.Provider>
-              </todoFilterStatus.Provider>
-            </setTodoFilter.Provider>
-          </todoFilter.Provider>
-        </todosActions.Provider>
-      </todosContext.Provider>
-    </mainContext.Provider>
+    <allTodos.Provider value={[mainTodos, setMainTodos]}>
+      <filteredTodos.Provider value={[todos, dispatch]}>
+        <todoFilter.Provider value={[filter, setFilter]}>
+          <todoFilterStatus.Provider value={[filterStatus, setFilterStatus]}>
+            {children}
+          </todoFilterStatus.Provider>
+        </todoFilter.Provider>
+      </filteredTodos.Provider>
+    </allTodos.Provider>
   );
 };
 
 export default TodosProvider;
-
-export const useMainTodos = () => useContext(mainContext);
-
-export const useTodos = () => useContext(todosContext);
-export const useTodosDispatch = () => useContext(todosActions);
-
-export const useFilter = () => useContext(todoFilter);
-export const useSetFilter = () => useContext(setTodoFilter);
-
-export const useFilterStatus = () => useContext(todoFilterStatus);
-export const useSetFilterStatus = () => useContext(setTodoFilterStatus);

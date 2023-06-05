@@ -1,9 +1,9 @@
-import { useTodos, useTodosDispatch } from "../Providers/TodosProvider";
+import { useContext } from "react";
 import TodoItem from "./TodoItem";
+import { filteredTodos } from "../Providers/TodosProvider";
 
 const TodoList = ({ onComplete, onEdit, onDelete }) => {
-  const todos = useTodos();
-  const dispatch = useTodosDispatch();
+  const [todos, dispatch] = useContext(filteredTodos);
 
   const renderTodos = () => {
     if (todos.length === 0) {
@@ -18,9 +18,11 @@ const TodoList = ({ onComplete, onEdit, onDelete }) => {
       <TodoItem
         key={todo.id}
         todo={todo}
-        onComplete={() => dispatch({type: 'complete', id: todo.id})}
-        onEdit={(edited) => dispatch({type: 'edit', id: todo.id, item: edited})}
-        onDelete={() => dispatch({type: 'delete', id: todo.id})}
+        onComplete={() => dispatch({ type: "complete", id: todo.id })}
+        onEdit={(edited) =>
+          dispatch({ type: "edit", id: todo.id, item: edited })
+        }
+        onDelete={() => dispatch({ type: "delete", id: todo.id })}
       />
     ));
   };

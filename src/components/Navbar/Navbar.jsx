@@ -1,18 +1,14 @@
 import { IoFunnel, IoFunnelOutline } from "react-icons/io5";
-import {
-  useFilterStatus,
-  useMainTodos,
-  useSetFilterStatus,
-} from "../Providers/TodosProvider";
+import { allTodos, todoFilterStatus } from "../Providers/TodosProvider";
+import { useContext } from "react";
 
 const Navbar = () => {
-  const todos = useMainTodos();
+  const [todos, setTodos] = useContext(allTodos);
 
   const todosCount = todos.length;
   const completedCount = todos.filter((todo) => todo.isCompleted).length;
 
-  const filterStatus = useFilterStatus();
-  const setFilterStatus = useSetFilterStatus();
+  const [filterStatus, setFilterStatus] = useContext(todoFilterStatus);
 
   const filterClickHandler = () => {
     setFilterStatus(!filterStatus);

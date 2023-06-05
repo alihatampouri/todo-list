@@ -1,20 +1,16 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import {
-  useFilter,
-  useFilterStatus,
-  useSetFilter,
-  useTodos,
-  useTodosDispatch,
+  filteredTodos,
+  todoFilter,
+  todoFilterStatus,
 } from "../Providers/TodosProvider";
 
 const TodoFilter = (props) => {
-  const todos = useTodos();
-  const dispatch = useTodosDispatch();
+  const [todos, dispatch] = useContext(filteredTodos);
 
-  const filter = useFilter();
-  const setFilter = useSetFilter();
+  const [filter, setFilter] = useContext(todoFilter);
 
-  const filterStatus = useFilterStatus();
+  const [filterStatus, setFilterStatus] = useContext(todoFilterStatus);
 
   useEffect(() => {
     dispatch({ type: "filter", filter: filter });
